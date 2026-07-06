@@ -1,5 +1,20 @@
 #! /bin/bash
 
+# ================================================================================================= #
+# DATA INSERTION FOR WORLDCUP DATABASE                                                              #
+# ================================================================================================= #
+# To execute this file, run the following command in the terminal:                                  #
+# ./insert_data                                                                                     #
+# ================================================================================================= #
+# To test the script, run the following command in the terminal:                                    #
+# ./insert_data test                                                                                #
+# ================================================================================================= #
+
+
+# ================================================================================================= #
+# CONNECT TO DATABASE                                                                               #
+# ================================================================================================= #
+
 if [[ $1 == "test" ]]
 then
   PSQL="psql --username=postgres --dbname=worldcuptest -t --no-align -c"
@@ -7,7 +22,10 @@ else
   PSQL="psql --username=freecodecamp --dbname=worldcup -t --no-align -c"
 fi
 
-# Do not change code above this line. Use the PSQL variable above to query your database.
+
+# ================================================================================================= #
+# DATABASE INSERTION                                                                                #
+# ================================================================================================= #
 
 echo $($PSQL "TRUNCATE games, teams;")
 
