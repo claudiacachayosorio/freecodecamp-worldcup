@@ -34,13 +34,17 @@ do
   # get winner_id
   if [[ $WINNER != winner ]]
   then
-    WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER';")
+    WINNER_ID=$($PSQL "
+      SELECT team_id FROM teams WHERE name='$WINNER';
+    ")
 
     # if not found
     if [[ -z $WINNER_ID ]]
     then
       # insert team
-      INSERT_TEAM_RESULT=$($PSQL "INSERT INTO teams(name) VALUES ('$WINNER');")
+      INSERT_TEAM_RESULT=$($PSQL "
+        INSERT INTO teams(name) VALUES ('$WINNER');
+      ")
 
       if [[ $INSERT_TEAM_RESULT == "INSERT 0 1" ]]
       then
@@ -48,20 +52,26 @@ do
       fi
 
       # get new winner_id
-      WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER';")
+      WINNER_ID=$($PSQL "
+        SELECT team_id FROM teams WHERE name='$WINNER';
+      ")
     fi
   fi
 
   # get opponent_id
   if [[ $OPPONENT != opponent ]]
   then
-    OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT';")
+    OPPONENT_ID=$($PSQL "
+      SELECT team_id FROM teams WHERE name='$OPPONENT';
+    ")
 
     # if not found
     if [[ -z $OPPONENT_ID ]]
     then
       # insert team
-      INSERT_TEAM_RESULT=$($PSQL "INSERT INTO teams(name) VALUES ('$OPPONENT');")
+      INSERT_TEAM_RESULT=$($PSQL "
+        INSERT INTO teams(name) VALUES ('$OPPONENT');
+      ")
 
       if [[ $INSERT_TEAM_RESULT == "INSERT 0 1" ]]
       then
@@ -69,7 +79,9 @@ do
       fi
 
       # get new opponent_id
-      OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT';")      
+      OPPONENT_ID=$($PSQL "
+        SELECT team_id FROM teams WHERE name='$OPPONENT';
+      ")      
     fi
   fi
 
