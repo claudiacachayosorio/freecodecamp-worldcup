@@ -67,8 +67,9 @@ echo "$($PSQL "
 	SELECT name
 	FROM games
 	INNER JOIN teams
-	ON games.winner_id = teams.team_id
-	WHERE year = 2018 AND round = 'Final';
+		ON games.winner_id = teams.team_id
+	WHERE year = 2018
+		AND round = 'Final';
 ")"
 
 echo -e "\nList of teams who played in the 2014 'Eighth-Final' round:"
@@ -76,8 +77,10 @@ echo "$($PSQL "
 	SELECT DISTINCT name
 	FROM games AS g
 	FULL JOIN teams AS t
-	ON g.winner_id = t.team_id OR g.opponent_id = t.team_id
-	WHERE year = 2014 AND round = 'Eighth-Final'
+		ON g.winner_id = t.team_id
+		OR g.opponent_id = t.team_id
+	WHERE year = 2014
+		AND round = 'Eighth-Final'
 	ORDER BY name;
 ")"
 
@@ -86,7 +89,7 @@ echo "$($PSQL "
 	SELECT DISTINCT name
 	FROM teams
 	INNER JOIN games
-	ON teams.team_id = games.winner_id
+		ON teams.team_id = games.winner_id
 	ORDER BY name;
 ")"
 
@@ -95,7 +98,7 @@ echo "$($PSQL "
 	SELECT year, name
 	FROM games
 	INNER JOIN teams
-	ON games.winner_id = teams.team_id
+		ON games.winner_id = teams.team_id
 	WHERE round = 'Final'
 	ORDER BY year;
 ")"

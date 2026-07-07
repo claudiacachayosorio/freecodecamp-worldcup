@@ -35,7 +35,9 @@ do
   if [[ $WINNER != winner ]]
   then
     WINNER_ID=$($PSQL "
-      SELECT team_id FROM teams WHERE name='$WINNER';
+      SELECT team_id
+      FROM teams
+      WHERE name='$WINNER';
     ")
 
     # if not found
@@ -43,7 +45,8 @@ do
     then
       # insert team
       INSERT_TEAM_RESULT=$($PSQL "
-        INSERT INTO teams(name) VALUES ('$WINNER');
+        INSERT INTO teams(name)
+        VALUES ('$WINNER');
       ")
 
       if [[ $INSERT_TEAM_RESULT == "INSERT 0 1" ]]
@@ -53,7 +56,9 @@ do
 
       # get new winner_id
       WINNER_ID=$($PSQL "
-        SELECT team_id FROM teams WHERE name='$WINNER';
+        SELECT team_id
+        FROM teams
+        WHERE name='$WINNER';
       ")
     fi
   fi
@@ -62,7 +67,9 @@ do
   if [[ $OPPONENT != opponent ]]
   then
     OPPONENT_ID=$($PSQL "
-      SELECT team_id FROM teams WHERE name='$OPPONENT';
+      SELECT team_id
+      FROM teams
+      WHERE name='$OPPONENT';
     ")
 
     # if not found
@@ -70,7 +77,8 @@ do
     then
       # insert team
       INSERT_TEAM_RESULT=$($PSQL "
-        INSERT INTO teams(name) VALUES ('$OPPONENT');
+        INSERT INTO teams(name)
+        VALUES ('$OPPONENT');
       ")
 
       if [[ $INSERT_TEAM_RESULT == "INSERT 0 1" ]]
@@ -80,7 +88,9 @@ do
 
       # get new opponent_id
       OPPONENT_ID=$($PSQL "
-        SELECT team_id FROM teams WHERE name='$OPPONENT';
+        SELECT team_id
+        FROM teams
+        WHERE name='$OPPONENT';
       ")      
     fi
   fi
@@ -89,7 +99,7 @@ do
   if [[ $YEAR != year ]]
   then
     INSERT_GAME_RESULT=$($PSQL "
-      INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals)
+      INSERT INTO games (year, round, winner_id, opponent_id, winner_goals, opponent_goals)
       VALUES ($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS);
     ")
 
